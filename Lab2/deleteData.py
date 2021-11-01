@@ -1,0 +1,15 @@
+from psycopg2 import Error
+
+def delete_visitor_by_id(connection, id):
+	try:
+		cursor = connection.cursor()
+		delete_query = """Delete from visitors where visitor_id = %s"""
+		cursor.execute(delete_query, id)
+		connection.commit()
+	except(Exception, Error) as error:
+		print("Error while working with database", error)
+	finally:	
+		if connection:
+			cursor.close()
+			connection.close()
+			print("Connection closed")
