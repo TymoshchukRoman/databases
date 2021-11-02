@@ -1,9 +1,9 @@
 from psycopg2 import Error
 
-def delete_visitor_by_id(connection, id):
+def delete_by_id(connection, id, table):
 	try:
 		cursor = connection.cursor()
-		delete_query = """Delete from visitors where visitor_id = %s"""
+		delete_query = f"""DELETE FROM {table} WHERE visitor_id = %s"""
 		cursor.execute(delete_query, id)
 		connection.commit()
 	except(Exception, Error) as error:
