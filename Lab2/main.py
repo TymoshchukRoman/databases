@@ -2,6 +2,7 @@ import psycopg2
 from config import host, user, password, db_name
 from deleteData import delete_by_id
 from insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
+from updateData import update_fee, update_visitor
 
 try:
 	#connect to database
@@ -24,6 +25,12 @@ try:
 	# insert_gym(connection, input(), input(), input())
 	# insert_simulator(connection, input(), input(), input())
 	# insert_abonnement(connection, input(), input())
+
+
+	# a = update_visitor(connection, "lastname", input(), "Druz")
+	# print(a)
+	# b = update_fee(connection, 1, 85)
+
 
 except Exception as _ex:
 	print("[INFO] Error while working with PosgreSQL", _ex)
