@@ -1,6 +1,7 @@
 import psycopg2
 from config import host, user, password, db_name
 from deleteData import delete_by_id
+from generateData import generate_gyms, generate_simulators, generate_visitors
 from insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
 from updateData import update_fee, update_visitor
 
@@ -30,7 +31,8 @@ try:
 	# a = update_visitor(connection, "lastname", input(), "Druz")
 	# print(a)
 	# b = update_fee(connection, 1, 85)
-
+	# generate_visitors(connection, [input(),])
+	# generate_simulators(connection, [input(),])
 
 except Exception as _ex:
 	print("[INFO] Error while working with PosgreSQL", _ex)
