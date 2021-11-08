@@ -5,7 +5,7 @@ from model.executeQuery import select_abonnements_by_age, select_simulators_by_f
 from model.generateData import generate_gyms, generate_visitors, generate_simulators
 from model.insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
 from model.updateData import update_fee, update_visitor
-
+from view import get_table_of_data
 
 try:
 	#connect to database
@@ -37,9 +37,13 @@ try:
 	# generate_simulators(connection, [input(),])
 
 	# select_visitors_with_abonnements(connection)
-	# select_simulators_by_fee(connection, 60, 100)
-
+	
 	# select_abonnements_by_age(connection, 60, 80)
+
+	
+
+	# a = select_simulators_by_fee(connection, 60, 100)
+	# get_table_of_data(a)
 
 	# a = [1,2,3,4,5,6]
 	# b = math.trunc(a[random.choice([0,1,2,3,4,5])])
