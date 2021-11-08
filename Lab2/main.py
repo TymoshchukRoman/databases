@@ -1,10 +1,11 @@
 import psycopg2
 from config import host, user, password, db_name
-from model.deleteData import delete_by_id
-from model.executeQuery import select_abonnements_by_age, select_simulators_by_fee, select_visitors_with_abonnements
-from model.generateData import generate_gyms, generate_visitors, generate_simulators
-from model.insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
-from model.updateData import update_fee, update_visitor
+# from model.deleteData import delete_by_id
+# from model.executeQuery import select_abonnements_by_age, select_simulators_by_fee, select_visitors_with_abonnements
+# from model.generateData import generate_gyms, generate_visitors, generate_simulators
+# from model.insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
+# from model.updateData import update_fee, update_visitor
+from model import DeleteData, ExecuteQuery, InsertData, UpdateData, GenerateData
 from view import get_table_of_data
 
 try:
@@ -40,6 +41,7 @@ try:
 	
 	# select_abonnements_by_age(connection, 60, 80)
 
+	# insertData = InsertData(connection)
 	
 
 	# a = select_simulators_by_fee(connection, 60, 100)

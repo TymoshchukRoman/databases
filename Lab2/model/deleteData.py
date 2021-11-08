@@ -1,15 +1,13 @@
-from psycopg2 import Error
+class DeleteData:
 
-def delete_by_id(connection, id, table):
-	try:
-		cursor = connection.cursor()
+	def __init__(self, connection):
+		self.connection = connection
+
+	def delete_by_id(self, id, table):
+		cursor = self.connection.cursor()
 		delete_query = f"""DELETE FROM {table} WHERE visitor_id = %s"""
 		cursor.execute(delete_query, id)
-		connection.commit()
-	except(Exception, Error) as error:
-		print("Error while working with database", error)
-	finally:	
-		if connection:
-			cursor.close()
-			connection.close()
-			print("Connection closed")
+		self.connection.commit()
+		
+		cursor.close()
+		self.connection.close()

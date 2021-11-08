@@ -1,8 +1,10 @@
-from psycopg2 import Error
+class GenerateData:
 
-def generate_visitors(connection, number):
-	try:
-		cursor = connection.cursor()
+	def __init__(self, connection):
+		self.connection = connection
+
+	def generate_visitors(self, number):
+		cursor = self.connection.cursor()
 		generate_query = """INSERT INTO visitors (firstname, lastname, age)
 							SELECT 'visitor' || chr(trunc(65+random()*25)::int) ||
 									chr(trunc(65+random()*25)::int) as firstname ,
@@ -11,17 +13,12 @@ def generate_visitors(connection, number):
 									trunc(random()*(99-5)+5)::int as age
 									FROM generate_series(1,%s) """
 		cursor.execute(generate_query, number)
-		connection.commit()
-	except(Exception, Error) as error:
-		print("Error while working with database", error)
-	finally:
-		if connection:
-			cursor.close()
-			connection.close()
+		self.connection.commit()
+		cursor.close()
+		self.connection.close()
 
-def generate_gyms(connection, number):
-	try:
-		cursor = connection.cursor()
+	def generate_gyms(self, number):
+		cursor = self.connection.cursor()
 		generate_query = """INSERT INTO gyms (address, area, fee)
 							SELECT trunc(random()*(200-1)+1)::int || ', ' ||
 							substr(md5(random()::text), 1,20) || ' Street' as address,
@@ -29,17 +26,12 @@ def generate_gyms(connection, number):
 							trunc(random()*(200-50)+5)::int as fee
 							FROM generate_series(1,%s)"""
 		cursor.execute(generate_query, number)
-		connection.commit()
-	except(Exception, Error) as error:
-		print("Error while working with database", error)
-	finally:
-		if connection:
-			cursor.close()
-			connection.close()
+		self.connection.commit()
+		cursor.close()
+		self.connection.close()
 
-def generate_simulators(connection, number):
-	try:
-		cursor = connection.cursor()
+	def generate_simulators(self, number):
+		cursor = self.connection.cursor()
 		cursor.execute("SELECT gyms.gym_id from gyms ORDER BY random() LIMIT 1")
 		a = cursor.fetchone()
 		generate_query = f"""INSERT INTO simulators (gym_id, model, weight)
@@ -50,12 +42,7 @@ def generate_simulators(connection, number):
 							trunc(random()*(100-1)+1)::int as model,
 							trunc(random()*(50-10)+10)::int as weight
 							FROM generate_series(1, %s) """
-
 		cursor.execute(generate_query, number)
-		connection.commit()
-	except(Exception, Error) as error:
-		print("Error while working with database", error)
-	finally:
-		if connection:
-			cursor.close()
-			connection.close()
+		self.connection.commit()
+		cursor.close()
+		self.connection.close()
