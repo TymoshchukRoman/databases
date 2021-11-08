@@ -41,7 +41,7 @@ def select_abonnements_by_age(connection, lower_age, upper_age):
 		record_to_select = (lower_age, upper_age)
 		cursor.execute(select_query, record_to_select)
 		data = cursor.fetchall()
-		print(data)
+		return data
 	except(Exception, Error) as error:
 		print("Error while working with database", error)
 	finally:

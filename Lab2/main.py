@@ -1,12 +1,11 @@
 import psycopg2
-import math
-import random
 from config import host, user, password, db_name
-from deleteData import delete_by_id
-from executeQuery import select_abonnements_by_age, select_simulators_by_fee, select_visitors_with_abonnements
-from generateData import generate_gyms, generate_visitors, generate_simulators
-from insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
-from updateData import update_fee, update_visitor
+from model.deleteData import delete_by_id
+from model.executeQuery import select_abonnements_by_age, select_simulators_by_fee, select_visitors_with_abonnements
+from model.generateData import generate_gyms, generate_visitors, generate_simulators
+from model.insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
+from model.updateData import update_fee, update_visitor
+
 
 try:
 	#connect to database
