@@ -59,10 +59,3 @@ def generate_simulators(connection, number):
 		if connection:
 			cursor.close()
 			connection.close()
-
-def get_random_gym_id(connection):
-	cursor = connection.cursor()
-
-	cursor.execute("SELECT gyms.gym_id from gyms ORDER BY random() LIMIT 6")
-	a = cursor.fetchall()
-	return a
