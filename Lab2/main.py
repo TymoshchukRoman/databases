@@ -1,60 +1,36 @@
 import psycopg2
 from config import host, user, password, db_name
-# from model.deleteData import delete_by_id
-# from model.executeQuery import select_abonnements_by_age, select_simulators_by_fee, select_visitors_with_abonnements
-# from model.generateData import generate_gyms, generate_visitors, generate_simulators
-# from model.insertData import insert_abonnement, insert_gym, insert_simulator, insert_visitor
-# from model.updateData import update_fee, update_visitor
-from model import DeleteData, ExecuteQuery, InsertData, UpdateData, GenerateData
-from view import get_table_of_data
+from model.deleteData import DeleteData
+from model.executeQuery import ExecuteQuery
+from model.generateData import GenerateData
+from model.insertData import InsertData
+from model.updateData import UpdateData
+from view import View
+from controller import Controller
 
-try:
-	#connect to database
-	connection = psycopg2.connect(
-		host = host,
-		user = user,
-		password = password,
-		database = db_name
-	)
-	connection.autocommit = True
+connection = psycopg2.connect(
+	host = host,
+	user = user,
+	password = password,
+	database = db_name
+)
+connection.autocommit = True
 
-	#int objects does not support indexings
+deleteData = DeleteData(connection)
+executeQuery = ExecuteQuery(connection)
+insertData = InsertData(connection)
+updateData = UpdateData(connection)
+generateData = GenerateData(connection)
+view = View()
 
-	# tmp = []
-	# k = input()
-	# tmp.append(k)
-	# delete_by_id(connection, tmp, "visitors")
+controller = Controller(deleteData, executeQuery, generateData, insertData, updateData, view)
 
-	# insert_visitor(connection, input(), input(), input())
-	# insert_gym(connection, input(), input(), input())
-	# insert_simulator(connection, input(), input(), input())
-	# insert_abonnement(connection, input(), input())
-
-
-	# a = update_visitor(connection, "lastname", input(), "Druz")
-	# print(a)
-	# b = update_fee(connection, 1, 85)
-	# generate_visitors(connection, [input(),])
-	# generate_simulators(connection, [input(),])
-
-	# select_visitors_with_abonnements(connection)
-	
-	# select_abonnements_by_age(connection, 60, 80)
-
-	# insertData = InsertData(connection)
-	
-
-	# a = select_simulators_by_fee(connection, 60, 100)
-	# get_table_of_data(a)
-
-	# a = [1,2,3,4,5,6]
-	# b = math.trunc(a[random.choice([0,1,2,3,4,5])])
-	# print(b)
-	# print(test(connection))
-
-except Exception as _ex:
-	print("[INFO] Error while working with PosgreSQL", _ex)
-finally:
-	if connection:
-		connection.close()
-		print("[INFO] PostgreSQL connection closed")
+while(True):
+	command = input('Enter command \n')
+	if command == 'exit':
+		break
+	try:
+		controller.handleCommand(command)
+		print(f"Command '{command}' executed")
+	except Exception as ex:
+		print(ex)

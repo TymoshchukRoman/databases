@@ -15,7 +15,6 @@ class GenerateData:
 		cursor.execute(generate_query, number)
 		self.connection.commit()
 		cursor.close()
-		self.connection.close()
 
 	def generate_gyms(self, number):
 		cursor = self.connection.cursor()
@@ -28,7 +27,6 @@ class GenerateData:
 		cursor.execute(generate_query, number)
 		self.connection.commit()
 		cursor.close()
-		self.connection.close()
 
 	def generate_simulators(self, number):
 		cursor = self.connection.cursor()
@@ -45,4 +43,3 @@ class GenerateData:
 		cursor.execute(generate_query, number)
 		self.connection.commit()
 		cursor.close()
-		self.connection.close()

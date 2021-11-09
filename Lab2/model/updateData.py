@@ -3,22 +3,16 @@ class UpdateData:
 	def __init__(self, connection):
 		self.connection = connection
 
-	def update_visitor(self, column, id, new_value):
-		if(column == "visitor_id"):
-			raise Exception("Id changing is not available")
+	def update_lastname(self, input):
 		cursor = self.connection.cursor()
-		update_query = f"""UPDATE visitors SET {column} = %s WHERE visitor_id = %s"""
-		record_to_update = (new_value, id)
-		cursor.execute(update_query, record_to_update)
+		update_query = f"""UPDATE visitors SET lastname = %s WHERE visitor_id = %s"""
+		cursor.execute(update_query, input)
 		self.connection.commit()
 		cursor.close()
-		self.connection.close()
 
-	def update_fee(self, id, new_fee):
+	def update_fee(self, input):
 		cursor = self.connection.cursor()
 		update_query = """UPDATE gyms SET fee = %s WHERE gym_id = %s"""
-		record_to_update = (new_fee, id)
-		cursor.execute(update_query, record_to_update)
+		cursor.execute(update_query, input)
 		self.connection.commit()
 		cursor.close()
-		self.connection.close()
