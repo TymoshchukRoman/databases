@@ -13,12 +13,12 @@ class ExecuteQuery:
 
 		return data
 	
-	def select_visitors_with_abonnements(self):
+	def select_visitors_with_abonnements(self,data):
 		cursor = self.connection.cursor()
 		select_query = """SELECT visitors.firstname, visitors.lastname, visitors.visitor_id from 
 							visitors inner join abonnements ON 
-							visitors.visitor_id = abonnements.visitor_id order by firstname"""
-		cursor.execute(select_query)
+							visitors.visitor_id = abonnements.visitor_id where visitors.visitor_id > %s order by firstname"""
+		cursor.execute(select_query, data)
 		data = cursor.fetchall()
 		cursor.close()
 

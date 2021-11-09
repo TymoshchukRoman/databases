@@ -11,6 +11,8 @@ def get_command_args(command):
 		return get_fee_query_data(command)
 	if command.startswith('printAbonnementsByAge'):
 		return get_age_query_data(command)
+	if command.startswith('printVisitorsWithAbs'):
+		return get_abonnements_query_data(command)
 
 def get_number(command):
 	data = command.split(' ')
@@ -56,3 +58,8 @@ def get_age_query_data(command):
 		raise Exception("Incorrect number of arguments entered")
 	return(data[1], data[2],)
 	
+def get_abonnements_query_data(command):
+	data = command.split(' ')
+	if len(data) != 2:
+		raise Exception("Incorrect number of arguments entered")
+	return(data[1])

@@ -1,5 +1,6 @@
 import  executeCommands
 import time
+import view
 class Controller:
 	def __init__(self, deleteData, executeQuery, generateData, insertData, updateData, view) :
 		self.deleteData = deleteData
@@ -37,17 +38,11 @@ class Controller:
 		
 		commandData = executeCommands.get_command_args(command)
 
-		if commandName in ["printSimulatorsByFee", "printAbonnementsByAge"]:
+		if commandName in ["printSimulatorsByFee", "printAbonnementsByAge", "printVisitorsWithAbs"]:
 			start = time.time()
 			fetched_data = self.command[commandName](commandData)
 			end = time.time()
+			self.view.print_table_of_data(fetched_data)
 			print(f"The request was performed in {int((end - start)*1000)} ms")
-			self.view.get_table_of_data(fetched_data)
-		elif (commandName == "printVisitorsWithAbs"):
-			start = time.time()
-			fetched_data = self.command[commandName]
-			end = time.time()
-			print(f"The request was performed in {int((end - start)*1000)} ms")
-			self.view.get_table_of_data(fetched_data)
 		else:
 			self.command[commandName](commandData)
