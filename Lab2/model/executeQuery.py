@@ -28,7 +28,7 @@ class ExecuteQuery:
 		cursor = self.connection.cursor()
 		select_query = """select firstname, lastname, age 
 						from visitors v full outer join abonnements q on q.visitor_id = v.visitor_id 
-						where age < 80 and age > 60 order by age"""
+						where age > %s and age < %s order by age"""
 		cursor.execute(select_query, input)
 		data = cursor.fetchall()
 		cursor.close()
