@@ -4,12 +4,12 @@
 створена таблиця abonnements).
 
 Команди для роботи з програмою (аргументи вводяться через пробіл):
-Команда              Аргументи
-insertAbonnement   visitor_id gym_id
-insertSimulator    gym_id model weight
-insertGym address  area fee
-insertVisitor      firstname lastname age
-updateLastname     newValue visitor_id
-updateFee newValue gym_id
-generate{Visitors, Gyms, Simulators} number
-delete{Visitor, Gym, Simulator, Abonnement} id
+
+insertAbonnement   visitor_id gym_id;
+insertSimulator    gym_id model weight;
+insertGym address  area fee;
+insertVisitor      firstname lastname age;
+updateLastname     newValue visitor_id;
+updateFee newValue gym_id;
+generate{Visitors, Gyms, Simulators} number;
+delete{Visitor, Gym, Simulator, Abonnement} id;
