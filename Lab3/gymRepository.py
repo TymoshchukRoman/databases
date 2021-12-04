@@ -1,29 +1,23 @@
+from orms import Gym
+
 class GymRepository:
-	def __init__(self, connection):
+	def __init__(self, connection, session):
 		self.connection = connection
+		self.session = session
 
 	def delete_gym(self, id):
-		cursor = self.connection.cursor()
-		delete_query = """DELETE FROM gyms WHERE gym_id = %s"""
-		cursor.execute(delete_query, id)
-		self.connection.commit()
-
-		cursor.close()
+		self.session.delete(self.session.query(Gym).get(id))
+		self.session.commit()
 	
 	def insert_gym(self, input):
-		cursor = self.connection.cursor()
-		insert_query = """INSERT INTO gyms (address, area, fee)
-												VALUES (%s, %s, %s)"""
-		cursor.execute(insert_query, input)
-		self.connection.commit()
-		cursor.close()
+		newGym = Gym(address = input[0], area = input[1], fee = input[2])
+		self.session.add(newGym)
+		self.session.commit()
 
 	def update_fee(self, input):
-		cursor = self.connection.cursor()
-		update_query = """UPDATE gyms SET fee = %s WHERE gym_id = %s"""
-		cursor.execute(update_query, input)
-		self.connection.commit()
-		cursor.close()
+		newData = self.session.query(Gym).get(input[1])
+		newData.fee = input[1]
+		self.session.commit()
 	
 	def generate_gyms(self, number):
 		cursor = self.connection.cursor()

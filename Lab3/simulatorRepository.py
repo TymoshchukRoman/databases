@@ -1,23 +1,18 @@
+from orms import Simulator
+
 class SimulatorRepository:
-	def __init__(self, connection):
+	def __init__(self, connection, session):
 		self.connection = connection
+		self.session = session
 	
 	def delete_simulator(self, id):
-		cursor = self.connection.cursor()
-		delete_query = """DELETE FROM simulators WHERE simulator_id = %s"""
-		cursor.execute(delete_query, id)
-		self.connection.commit()
+		self.session.delete(self.session.query(Simulator).get(id))
+		self.session.commit()
 
-		cursor.close()
-	
 	def insert_simulator(self, input):
-		cursor = self.connection.cursor()
-		insert_query = """INSERT INTO simulators (gym_id, model, weight)
-												VALUES (%s, %s, %s)"""
-		cursor.execute(insert_query, input)
-		self.connection.commit()
-
-		cursor.close()
+		newSimulator = Simulator(gym_id=input[0], model=input[1], weight=input[2])
+		self.session.add(newSimulator)
+		self.session.commit()
 
 	def generate_simulators(self, number):
 		cursor = self.connection.cursor()

@@ -1,29 +1,24 @@
+from orms import Visitor
+
 class VisitorRepository:
-	def __init__(self, connection):
+	
+	def __init__(self, connection, session):
 		self.connection = connection
+		self.session = session
 	
 	def delete_visitor(self, id):
-		cursor = self.connection.cursor()
-		delete_query = """DELETE FROM visitors WHERE visitor_id = %s"""
-		cursor.execute(delete_query, id)
-		self.connection.commit()
-
-		cursor.close()
+		self.session.delete(self.session.query(Visitor).get(id))
+		self.session.commit()
 	
 	def insert_visitor(self, input):
-		cursor = self.connection.cursor()
-		insert_query = """INSERT INTO visitors (firstname, lastname, age)
-												VALUES (%s, %s, %s)"""
-		cursor.execute(insert_query, input)
-		self.connection.commit()
-		cursor.close()
+		newVisitor = Visitor(firstname=input[0], lastname=input[1], age=input[2])
+		self.session.add(newVisitor)
+		self.session.commit()
 	
 	def update_lastname(self, input):
-			cursor = self.connection.cursor()
-			update_query = f"""UPDATE visitors SET lastname = %s WHERE visitor_id = %s"""
-			cursor.execute(update_query, input)
-			self.connection.commit()
-			cursor.close()
+		newData = self.session.query(Visitor).get(input[1])
+		newData.lastname = input[1]
+		self.session.commit()
 
 	def generate_visitors(self, number):
 		cursor = self.connection.cursor()
