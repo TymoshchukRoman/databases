@@ -1,19 +1,19 @@
 import psycopg2
 from config import config
-from tmp import host, user, password, db_name
 from Session import get_session
-from abonnementRepository import AbonnementRepository
-from visitorRepository import VisitorRepository
-from gymRepository import GymRepository
-from simulatorRepository import SimulatorRepository
+from model.abonnementRepository import AbonnementRepository
+from model.gymRepository import GymRepository
+from model.simulatorRepository import SimulatorRepository
+from model.visitorRepository import VisitorRepository
 from view import View
 from controller import Controller
 
 connection = psycopg2.connect(
-	host= host,
-	user= user,
-	password = password,
-	database= db_name
+	host= config['host'],
+	user= config['user'],
+	password = config['password'],
+	database= config['db_name'],
+	port = config['port']
 )
 
 session = get_session()

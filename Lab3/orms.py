@@ -14,6 +14,7 @@ class Abonnement(Base):
 
     gym = relationship("Gym", back_populates = "visitors")
     visitor = relationship("Visitor", back_populates = "gyms")
+    
     def __repr__(self):
         return "Abonnement(visitor_id = '%s', gym_id = '%s')" % (self.visitor_id, self.gym_id)
 

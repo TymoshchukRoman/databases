@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Sequence
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
@@ -9,6 +9,8 @@ class Gym(Base):
     address = Column(String(100), nullable=False)
     area = Column(Integer, nullable=False)
     fee = Column(Integer, nullable=False)
+
+    visitors = relationship("Abonnement", back_populates="gym")
 
     def __repr__(self):
         return "<Gym(address = '%s', area = '%s', fee = '%s')>" % (self.address, self.area, self.fee)
